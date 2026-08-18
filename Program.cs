@@ -1,4 +1,4 @@
-﻿using Maker;
+﻿namespace Maker;
 
 static class Program
 {
