@@ -1,17 +1,15 @@
 ﻿using Maker;
 
-switch (args.Length)
+static class Program
 {
-    case 0:
-        FailureHandler.HandleNoUserArgument();
-        break;
-    case 1:
-        ProjectCreator.TryCreateProject(args[0]);
-        break;
-    default:
-        FailureHandler.HandleToMuchUserArguments();
-        break;
+    private static void Main(string[] args) => ActionPicker.PickAction(
+        args,
+        FailureHandler.HandleNoUserArgument,
+        FailureHandler.HandleToMuchUserArguments,
+        ProjectCreator.TryCreateProject
+    );
 }
+
 
 
 
