@@ -1,23 +1,16 @@
-﻿namespace Maker;
+﻿using Maker;
 
-public static class Program
+switch (args.Length)
 {
-    public static void Main(string[] args)
-    {
-        switch (args.Length)
-        {
-            case 0:
-                FailureHandler.HandleNoUserArgument();
-                break;
-            case 1:
-                ProjectCreator.TryCreateProject(args[0]);
-                break;
-            default:
-                FailureHandler.HandleToMuchUserArguments();
-                break;
-        }
-    }
-
+    case 0:
+        FailureHandler.HandleNoUserArgument();
+        break;
+    case 1:
+        ProjectCreator.TryCreateProject(args[0]);
+        break;
+    default:
+        FailureHandler.HandleToMuchUserArguments();
+        break;
 }
 
 
