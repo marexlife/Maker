@@ -1,4 +1,4 @@
-using Maker;
+namespace Maker;
 
 public sealed record ProjectFile(string name, string contents) : IProjectItem
 {
