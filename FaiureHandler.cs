@@ -1,3 +1,5 @@
+namespace Maker;
+
 internal static class FailureHandler
 {
     internal static void HandleNoUserArgument()

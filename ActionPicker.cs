@@ -1,4 +1,3 @@
-
 namespace Maker;
 
 internal static class ActionPicker

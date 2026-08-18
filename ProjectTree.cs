@@ -5,12 +5,6 @@ internal sealed class ProjectTree(string projectName)
     const string CMakeLists = "CMakeLists.txt";
     const string SourceDirectoryName = "src";
 
-    private string GetProjectFlagsName()
-    {
-        var screamingSnakeCaseName = Converter.ToScreamingSnakeCase(projectName);
-
-        return $"{screamingSnakeCaseName}_FLAGS";
-    }
 
     internal ProjectDirectory GetProjectTree()
     {
@@ -89,5 +83,12 @@ internal sealed class ProjectTree(string projectName)
                 """
             )
         ]);
+    }
+
+    private string GetProjectFlagsName()
+    {
+        var screamingSnakeCaseName = Converter.ToScreamingSnakeCase(projectName);
+
+        return $"{screamingSnakeCaseName}_FLAGS";
     }
 }
