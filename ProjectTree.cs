@@ -41,7 +41,7 @@ internal sealed class ProjectTree(string projectName)
                             main.cpp
                         )
 
-                        target_compile_flags(${PROJECT_NAME} PRIVATE
+                        target_compile_options(${PROJECT_NAME} PRIVATE
                             ${{{GetProjectFlagsName()}}}
                         )
                         """
