@@ -16,8 +16,6 @@ internal static class ProjectCreator
 
     private static void DoCreateProject(string directoryName)
     {
-        var projectDirectory = ProjectTree.GetProjectTree(directoryName);
-
-        projectDirectory.Create();
+        new ProjectTree(directoryName).GetProjectTree().Create();
     }
 }
