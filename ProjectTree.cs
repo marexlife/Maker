@@ -42,7 +42,7 @@ internal sealed class ProjectTree(string projectName)
                         )
 
                         target_compile_flags(${PROJECT_NAME} PRIVATE
-                            {{{GetProjectFlagsName()}}}
+                            ${{{GetProjectFlagsName()}}}
                         )
                         """
                     ),
