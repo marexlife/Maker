@@ -13,11 +13,5 @@ Than in the project directory run:
 there you you should see a project directory with a cmake 
 setup and main.cpp in project/src/main
 
-If this succeeded run:
-```dotnet publish```
-
-
-and than look in the bin/Release/net10.0/[Your OS and Arch]/native/Maker[.exe]
-(.exe when your on Windows)
-
-That should be your final executable.
+Look in bin/Debug/net10.0/Maker[.exe] (.exe if your on Windows)
+Run that (and leave it in this directory to start the project)
