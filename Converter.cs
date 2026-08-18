@@ -10,9 +10,9 @@ internal static class Converter
         foreach (var nameChar in name)
         {
             if (!isFirstCharIteration && char.IsUpper(nameChar))
-                result.Append('_');
+                result += '_';
 
-            result.Append(char.ToUpper(nameChar));
+            result += char.ToUpper(nameChar);
             isFirstCharIteration = false;
         }
 
