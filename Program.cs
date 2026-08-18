@@ -1,6 +1,5 @@
 ﻿namespace Maker;
 
-
 public static class Program
 {
     public static void Main(string[] args)
@@ -8,10 +7,13 @@ public static class Program
         switch (args.Length)
         {
             case 0:
-                FailureHandler.HandleFailure();
+                FailureHandler.HandleNoUserArgument();
+                break;
+            case 1:
+                ProjectCreator.TryCreateProject(args[0]);
                 break;
             default:
-                ProjectCreator.TryCreateProject(args[0]);
+                FailureHandler.HandleToMuchUserArguments();
                 break;
         }
     }
