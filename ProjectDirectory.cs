@@ -1,23 +1,25 @@
 namespace Maker;
 
-internal sealed record ProjectDirectory(
-    string name, ProjectItem[] projectItems) : ProjectItem
+public sealed record ProjectDirectory(
+    string name, IProjectItem[] projectItems) : IProjectItem
 {
-    internal ProjectDirectory(string name) : this(name, [])
+    public ProjectDirectory(string name) : this(name, [])
     {
     }
 
-    internal ProjectItem[] ProjectItems { get; } = projectItems;
+    public IProjectItem[] ProjectItems { get; } = projectItems;
 
-    internal void Create()
+    public void Create()
     {
-        Create(Directory.GetCurrentDirectory());
+        var projectPath = Directory.GetCurrentDirectory();
+
+        Create(projectPath);
     }
 
-    internal override void Create(string path)
+    public void Create(string path)
     {
-        var info = Directory.CreateDirectory(name);
-        var newPath = Path.Join(path, info.Name);
+        var newPath = Path.Join(path, name);
+        Directory.CreateDirectory(newPath);
 
         foreach (var projectItem in projectItems)
         {

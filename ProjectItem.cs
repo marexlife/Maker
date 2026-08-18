@@ -1,6 +1,6 @@
 namespace Maker;
 
-internal abstract record ProjectItem
+public interface IProjectItem
 {
-    internal abstract void Create(string path);
+    void Create(string path);
 }

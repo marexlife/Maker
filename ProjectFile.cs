@@ -1,11 +1,11 @@
 using Maker;
 
-internal sealed record ProjectFile(string name) : ProjectItem
+public sealed record ProjectFile(string name, string contents) : IProjectItem
 {
-    internal override void Create(string path)
+    public void Create(string path)
     {
         var filePath = Path.Join(path, name);
 
-        File.Create(filePath);
+        File.WriteAllText(filePath, contents);
     }
 }

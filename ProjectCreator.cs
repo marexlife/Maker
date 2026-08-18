@@ -16,7 +16,19 @@ internal static class ProjectCreator
 
     private static void DoCreateProject(string directoryName)
     {
-        ProjectDirectory projectDirectory = new(directoryName);
+        ProjectDirectory projectDirectory = new(directoryName, [
+            new ProjectDirectory("src", [
+                new ProjectFile(
+                "main.cpp",
+                """
+                #include <iostream>
+                
+                int main() {
+                    std::cout << "Hi!\n";
+                }
+                """)
+            ])
+        ]);
 
         projectDirectory.Create();
     }
