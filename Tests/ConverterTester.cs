@@ -13,6 +13,9 @@ public class ConverterTester
 
         var actualOutput = Converter.ToScreamingSnakeCase(input);
 
+        Console.WriteLine($"expected output: {expectedOutput}");
+        Console.WriteLine($"actual output: {actualOutput}");
+
         Assert.IsTrue(expectedOutput == actualOutput);
     }
 }
