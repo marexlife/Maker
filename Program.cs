@@ -1,16 +1,11 @@
 ﻿namespace Maker;
 
-static class Program
+public static class Program
 {
-    private static void Main(string[] args) => ActionPicker.PickAction(
-        args,
+    public static void Main() => ActionPicker.PickAction(
         FailureHandler.HandleNoUserArgument,
         FailureHandler.HandleToMuchUserArguments,
         ProjectCreator.TryCreateProject
     );
 }
-
-
-
-
 
