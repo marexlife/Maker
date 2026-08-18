@@ -3,8 +3,8 @@
 public static class Program
 {
     public static void Main() => ActionPicker.PickAction(
-        FailureHandler.HandleNoUserArgument,
-        FailureHandler.HandleToMuchUserArguments,
+        ArgumentFailureHandler.HandleNoUserArgument,
+        ArgumentFailureHandler.HandleToMuchUserArguments,
         ProjectCreator.TryCreateProject
     );
 }

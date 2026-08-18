@@ -1,6 +1,6 @@
 namespace Maker;
 
-internal static class FailureHandler
+internal static class ArgumentFailureHandler
 {
     internal static void HandleNoUserArgument()
     {
