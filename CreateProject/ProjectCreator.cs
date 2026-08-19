@@ -2,7 +2,9 @@ namespace Maker.CreateProject;
 
 internal sealed class ProjectCreator(ProjectCreationInfo projectCreationInfo)
 {
-    ProjectTree _projectTree = new(projectCreationInfo.ProjectName);
+    private readonly ProjectTree _projectTree = new(
+        projectCreationInfo.ProjectName
+    );
 
     internal void TryCreateProject()
     {

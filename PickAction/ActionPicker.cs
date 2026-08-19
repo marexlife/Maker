@@ -1,7 +1,7 @@
 using Maker.CreateModule;
 using Maker.CreateProject;
 
-namespace Maker;
+namespace Maker.PickAction;
 
 internal sealed class ActionPicker(
     Action<ProjectCreationInfo> tryCreateProjectAction,
