@@ -17,7 +17,7 @@ internal sealed class ModuleTree(string name)
 
         return new(NameConfig.SourceDirectoryName, [
             new DirectoryItem(name, [
-                new FileItem(name,
+                new FileItem($"{className}.{NameConfig.CppFileNameExtension}",
                 $$"""
                 #ifndef {{includeGuard}}
                 #define {{includeGuard}}
