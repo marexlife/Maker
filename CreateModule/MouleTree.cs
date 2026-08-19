@@ -5,31 +5,31 @@ using Maker.CreationShared;
 
 namespace Maker.CreateModule;
 
-internal sealed class ModuleTree(string name)
+internal sealed class ModuleTree(string moduleName)
 {
-    private CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(name);
+    private CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(moduleName);
 
     internal DirectoryItem GetModuleTree()
     {
         var projectName =
             ProjectNameInferService.InferProjectName();
         var screamingSnakeCaseModuleName =
-            NameConverter.ToScreamingSnakeCase(name);
+            NameConverter.ToScreamingSnakeCase(moduleName);
         var screamingSnakeCaseProjectName =
             NameConverter.ToScreamingSnakeCase(projectName);
         var includeGuard =
             $"{screamingSnakeCaseProjectName}_{screamingSnakeCaseModuleName}_H";
         var namespaceName =
-            $"{projectName}::{name}";
+            $"{projectName}::{moduleName}";
         var className =
-            NameConverter.ToPascalCase(name);
+            NameConverter.ToPascalCase(moduleName);
         var classHeaderFileName =
             $"{className}.{NameConfig.CppHeaderFileNameExtension}";
         var classImplementationFileName =
             $"{className}.{NameConfig.CppFileNameExtension}";
 
         return new(NameConfig.SourceDirectoryName, [
-            new DirectoryItem(name, [
+            new DirectoryItem(moduleName, [
                 new FileItem(classHeaderFileName,
                 $$"""
                 #ifndef {{includeGuard}}
@@ -50,7 +50,7 @@ internal sealed class ModuleTree(string name)
                 new FileItem(NameConfig.CMakeLists,
                 $$"""
                 cmake_minimum_required(VERSION 3.20)
-                project({{name}}})
+                project({{moduleName}}})
                 
                 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
