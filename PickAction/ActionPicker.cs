@@ -28,8 +28,8 @@ internal sealed class ActionPicker(
     {
         Action action = _args.Length switch
         {
-            1 => ExecuteArgumentCommandAction,
-            2 => ExecuteTwoArgumentCommandAction,
+            2 => ExecuteArgumentCommandAction,
+            3 => ExecuteTwoArgumentCommandAction,
             _ => throw new InvalidUserArgumentException(),
         };
 
