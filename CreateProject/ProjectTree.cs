@@ -1,4 +1,6 @@
-namespace Maker;
+using Maker.Items;
+
+namespace Maker.CreateProject;
 
 internal sealed class ProjectTree(string projectName)
 {
@@ -6,11 +8,11 @@ internal sealed class ProjectTree(string projectName)
     const string SourceDirectoryName = "src";
 
 
-    internal ProjectDirectory GetProjectTree()
+    internal DirectoryItem GetProjectTree()
     {
         return new(projectName, [
-            new ProjectDirectory(SourceDirectoryName, [
-                new ProjectFile(
+            new DirectoryItem(SourceDirectoryName, [
+                new FileItem(
                     CMakeLists,
                     $"""
                     cmake_minimum_required(VERSION 3.20)
@@ -18,8 +20,8 @@ internal sealed class ProjectTree(string projectName)
                     add_subdirectory(main)
                     """
                 ),
-                new ProjectDirectory("main",[
-                    new ProjectFile(
+                new DirectoryItem("main",[
+                    new FileItem(
                         CMakeLists,
                         $$"""
                         cmake_minimum_required(VERSION 3.20)
@@ -40,7 +42,7 @@ internal sealed class ProjectTree(string projectName)
                         )
                         """
                     ),
-                    new ProjectFile(
+                    new FileItem(
                         "main.cpp",
                         """
                         #include <iostream>
@@ -52,8 +54,8 @@ internal sealed class ProjectTree(string projectName)
                     )
                 ])
             ]),
-            new ProjectDirectory("cmake", [
-                new ProjectFile(
+            new DirectoryItem("cmake", [
+                new FileItem(
                     "flags.cmake",
                     $"""
                     cmake_minimum_required(VERSION 3.20)
@@ -73,7 +75,7 @@ internal sealed class ProjectTree(string projectName)
                     """
                 )
             ]),
-            new ProjectFile(
+            new FileItem(
                 CMakeLists,
                 $"""
                 cmake_minimum_required(VERSION 3.20)

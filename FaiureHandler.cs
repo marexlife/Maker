@@ -8,11 +8,4 @@ internal static class ArgumentFailureHandler
 
         Environment.Exit(-1);
     }
-
-    internal static void HandleToMuchUserArguments()
-    {
-        Console.WriteLine("Please provide only one argument");
-
-        Environment.Exit(-2);
-    }
 }
