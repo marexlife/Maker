@@ -19,11 +19,11 @@ public sealed record DirectoryItem(
     public void Create(string path)
     {
         var newPath = Path.Join(path, name);
-        Directory.CreateDirectory(newPath);
+
+        if (!Directory.Exists(newPath))
+            Directory.CreateDirectory(newPath);
 
         foreach (var projectItem in projectItems)
-        {
             projectItem.Create(newPath);
-        }
     }
 }

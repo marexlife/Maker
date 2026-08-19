@@ -1,20 +1,19 @@
 using Maker.Items;
-using Maker.Utils;
+using Maker.Config;
+using Maker.CreationShared;
 
 namespace Maker.CreateProject;
 
 internal sealed class ProjectTree(string projectName)
 {
-    const string CMakeLists = "CMakeLists.txt";
-    const string SourceDirectoryName = "src";
-
+    private readonly CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(projectName);
 
     internal DirectoryItem GetProjectTree()
     {
         return new(projectName, [
-            new DirectoryItem(SourceDirectoryName, [
+            new DirectoryItem(NameConfig.SourceDirectoryName, [
                 new FileItem(
-                    CMakeLists,
+                    NameConfig.CMakeLists,
                     $"""
                     cmake_minimum_required(VERSION 3.20)
 
@@ -23,7 +22,7 @@ internal sealed class ProjectTree(string projectName)
                 ),
                 new DirectoryItem("main",[
                     new FileItem(
-                        CMakeLists,
+                        NameConfig.CMakeLists,
                         $$"""
                         cmake_minimum_required(VERSION 3.20)
                         project(main)
@@ -39,7 +38,7 @@ internal sealed class ProjectTree(string projectName)
                         )
 
                         target_compile_options(${PROJECT_NAME} PRIVATE
-                            ${{{GetProjectFlagsName()}}}
+                            ${{{_cmakeFlagNameBuilder.GetProjectFlagsName()}}}
                         )
                         """
                     ),
@@ -62,9 +61,9 @@ internal sealed class ProjectTree(string projectName)
                     cmake_minimum_required(VERSION 3.20)
 
                     if (MSVC)
-                        set({GetProjectFlagsName()} /W4)
+                        set({_cmakeFlagNameBuilder.GetProjectFlagsName()} /W4)
                     else()
-                        set({GetProjectFlagsName()} 
+                        set({_cmakeFlagNameBuilder.GetProjectFlagsName()} 
                             -Wall
                             -Wextra
                             -Wpedantic
@@ -77,21 +76,24 @@ internal sealed class ProjectTree(string projectName)
                 )
             ]),
             new FileItem(
-                CMakeLists,
+                NameConfig.CMakeLists,
                 $"""
                 cmake_minimum_required(VERSION 3.20)
                 project({projectName})
 
-                add_subdirectory({SourceDirectoryName})
+                add_subdirectory({NameConfig.SourceDirectoryName})
                 """
-            )
+            ),
+            new FileItem("run.sh",
+            """
+            #!/bin/bash
+
+            cmake . -B build -GNinja
+            cmake --build build
+            ./build/src/main/main
+            """)
         ]);
     }
 
-    private string GetProjectFlagsName()
-    {
-        var screamingSnakeCaseName = Converter.ToScreamingSnakeCase(projectName);
 
-        return $"{screamingSnakeCaseName}_FLAGS";
-    }
 }

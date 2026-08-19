@@ -1,5 +1,7 @@
+using Maker.Config;
 using Maker.CreateModule;
 using Maker.CreateProject;
+using Maker.UserHelp;
 
 namespace Maker.PickAction;
 
@@ -8,7 +10,7 @@ internal sealed class ActionPicker(
     Action<ModuleCreationInfo> tryCreateModuleAction)
 {
     private readonly string[] _args = Environment.GetCommandLineArgs();
-    const int WantedArgumentCount = 3;
+
 
     internal void TryPickAction()
     {
@@ -26,34 +28,41 @@ internal sealed class ActionPicker(
     {
         Action action = _args.Length switch
         {
-            WantedArgumentCount => () => PickSuccessAction(),
-            > WantedArgumentCount => () => throw new InvalidUserArgumentException(
-                $"Provide at least {WantedArgumentCount} Arguments"
-            ),
-            < WantedArgumentCount => () => throw new InvalidUserArgumentException(
-                $"Provide not more then {WantedArgumentCount} Arguments"
-            )
+            2 => ExecuteArgumentCommandAction,
+            3 => ExecuteTwoArgumentCommandAction,
+            _ => throw new InvalidUserArgumentException(),
         };
 
         action.Invoke();
     }
 
-    private void PickSuccessAction()
+    private void ExecuteArgumentCommandAction()
+    {
+        var command = _args[1];
+
+        Action action = command switch
+        {
+            CommandConfig.HelpCommand => UserHelpScreen.DisplayHelp,
+            _ => throw new InvalidUserArgumentException()
+        };
+
+        action.Invoke();
+    }
+
+    private void ExecuteTwoArgumentCommandAction()
     {
         var command = _args[1];
         var name = _args[2];
 
         Action action = command switch
         {
-            "mod" => () => tryCreateModuleAction.Invoke(
+            CommandConfig.ModuleCommand => () => tryCreateModuleAction.Invoke(
                 new ModuleCreationInfo(name)
             ),
-            "project" => () => tryCreateProjectAction.Invoke(
+            CommandConfig.ProjectCommand => () => tryCreateProjectAction.Invoke(
                 new ProjectCreationInfo(name)
             ),
-            _ => throw new InvalidUserArgumentException(
-                "Your first argument is not a know command."
-            ),
+            _ => throw new InvalidUserArgumentException(),
         };
 
         action.Invoke();
