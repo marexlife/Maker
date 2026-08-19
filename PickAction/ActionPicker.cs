@@ -56,10 +56,10 @@ internal sealed class ActionPicker(
 
         Action action = command switch
         {
-            "mod" => () => tryCreateModuleAction.Invoke(
+            CommandConfig.ModuleCommand => () => tryCreateModuleAction.Invoke(
                 new ModuleCreationInfo(name)
             ),
-            "project" => () => tryCreateProjectAction.Invoke(
+            CommandConfig.ProjectCommand => () => tryCreateProjectAction.Invoke(
                 new ProjectCreationInfo(name)
             ),
             _ => throw new InvalidUserArgumentException(),
