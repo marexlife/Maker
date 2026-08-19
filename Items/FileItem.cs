@@ -6,6 +6,15 @@ public sealed record FileItem(string name, string contents) : IItem
     {
         var filePath = Path.Join(path, name);
 
-        File.WriteAllText(filePath, contents);
+        var textBuffer = string.Empty;
+
+        if (File.Exists(filePath))
+        {
+            textBuffer += File.ReadAllText(filePath);
+        }
+        textBuffer += '\n';
+        textBuffer += contents;
+
+        File.WriteAllText(filePath, textBuffer);
     }
 }
