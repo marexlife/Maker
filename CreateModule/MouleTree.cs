@@ -14,10 +14,12 @@ internal sealed class ModuleTree(string name)
         var includeGuard = $"{screamingSnakeCaseProjectName}_{screamingSnakeCaseModuleName}_H";
         var namespaceName = $"{projectName}::{name}";
         var className = NameConverter.ToPascalCase(name);
+        var classHeaderName = $"{className}.{NameConfig.CppHeaderFileNameExtension}";
+        var classFileName = $"{className}.{NameConfig.CppFileNameExtension}";
 
         return new(NameConfig.SourceDirectoryName, [
             new DirectoryItem(name, [
-                new FileItem($"{className}.{NameConfig.CppHeaderFileNameExtension}",
+                new FileItem(classHeaderName,
                 $$"""
                 #ifndef {{includeGuard}}
                 #define {{includeGuard}}
@@ -26,8 +28,13 @@ internal sealed class ModuleTree(string name)
                    public:
                 };
                 }
-                #endif {{includeGuard}}
+                #endif // {{includeGuard}}
                 """
+                ),
+                new FileItem(classFileName,
+                $""""
+                #include "{classHeaderName}"
+                """"
                 )
             ])
         ]);
