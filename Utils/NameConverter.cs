@@ -39,10 +39,7 @@ internal static class NameConverter
         char nameChar,
         char? previousCharNullable)
     {
-        if (IsSeparatorChar(nameChar))
-        {
-            return;
-        }
+        if (IsSeparatorChar(nameChar)) return;
 
         if (previousCharNullable == null)
         {
