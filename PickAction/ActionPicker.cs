@@ -28,10 +28,10 @@ internal sealed class ActionPicker(
         {
             WantedArgumentCount => () => PickSuccessAction(),
             > WantedArgumentCount => () => throw new InvalidUserArgumentException(
-                $"Provide at least {WantedArgumentCount} Arguments"
+                $"Provide not more then {WantedArgumentCount} Arguments"
             ),
             < WantedArgumentCount => () => throw new InvalidUserArgumentException(
-                $"Provide not more then {WantedArgumentCount} Arguments"
+                $"Provide at least {WantedArgumentCount} Arguments"
             )
         };
 
