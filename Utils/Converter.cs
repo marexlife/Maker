@@ -1,4 +1,4 @@
-namespace Maker;
+namespace Maker.Utils;
 
 internal static class Converter
 {
