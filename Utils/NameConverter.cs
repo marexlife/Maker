@@ -28,19 +28,22 @@ internal static class NameConverter
         {
             if (IsSeparatorChar(nameChar))
             {
-                previousChar = nameChar;
-                continue;
+                goto loopIterationEnd;
             }
 
             if (previousChar == null)
             {
                 result += char.ToUpper(nameChar);
-                continue;
+
+                goto loopIterationEnd;
             }
 
             result += IsSeparatorChar(previousChar.Value) ?
                 char.ToUpper(previousChar.Value) :
                 char.ToLower(previousChar.Value);
+
+        loopIterationEnd:
+            previousChar = nameChar;
         }
 
         return result;
