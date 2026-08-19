@@ -26,27 +26,37 @@ internal static class NameConverter
 
         foreach (var nameChar in name)
         {
-            if (IsSeparatorChar(nameChar))
-            {
-                goto loopIterationEnd;
-            }
+            ToPascalCaseIteration(ref result, nameChar, previousChar);
 
-            if (previousChar == null)
-            {
-                result += char.ToUpper(nameChar);
-
-                goto loopIterationEnd;
-            }
-
-            result += IsSeparatorChar(previousChar.Value) ?
-                char.ToUpper(previousChar.Value) :
-                char.ToLower(previousChar.Value);
-
-        loopIterationEnd:
             previousChar = nameChar;
         }
 
         return result;
+    }
+
+    private static void ToPascalCaseIteration(
+        ref string result,
+        char nameChar,
+        char? previousCharNullable)
+    {
+        if (IsSeparatorChar(nameChar))
+        {
+            return;
+        }
+
+        if (previousCharNullable == null)
+        {
+            result += char.ToUpper(nameChar);
+
+            return;
+        }
+
+        var previousChar = previousCharNullable.Value;
+        var previousWasSeparator = IsSeparatorChar(previousChar);
+
+        result += previousWasSeparator ?
+            char.ToUpper(nameChar) :
+            char.ToLower(nameChar);
     }
 
     static bool IsSeparatorChar(char charInQuestion)
