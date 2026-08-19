@@ -84,7 +84,15 @@ internal sealed class ProjectTree(string projectName)
 
                 add_subdirectory({NameConfig.SourceDirectoryName})
                 """
-            )
+            ),
+            new FileItem("run.sh",
+            """
+            #!/bin/bash
+            
+            cmake . -B build -GNinja
+            cmake --build build
+            ./build/src/main/main
+            """)
         ]);
     }
 
