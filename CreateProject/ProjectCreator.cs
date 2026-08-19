@@ -8,13 +8,11 @@ internal sealed class ProjectCreator(ProjectCreationInfo projectCreationInfo)
     {
         try
         {
-            DoCreateProject();
+            _projectTree.GetProjectTree().Create();
         }
         catch (Exception exception)
         {
             Console.WriteLine(exception);
         }
     }
-
-    private void DoCreateProject() => _projectTree.GetProjectTree().Create();
 }
