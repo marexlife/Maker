@@ -13,8 +13,8 @@ you can link your main executable to them. <br>
 ## Build & Run
 You'll need .NET 10: https://dotnet.microsoft.com/en-us/download
 
-Than in the project directory run: 
-```dotnet run project```
+Than in the project directory run: <br>
+```dotnet run project``` <br>
 there you you should see a project directory with a cmake 
 setup and main.cpp in project/src/main
 
