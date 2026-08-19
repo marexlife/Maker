@@ -1,20 +1,17 @@
 using Maker.Items;
 using Maker.Utils;
+using Maker.Config;
 
 namespace Maker.CreateProject;
 
 internal sealed class ProjectTree(string projectName)
 {
-    const string CMakeLists = "CMakeLists.txt";
-    const string SourceDirectoryName = "src";
-
-
     internal DirectoryItem GetProjectTree()
     {
         return new(projectName, [
-            new DirectoryItem(SourceDirectoryName, [
+            new DirectoryItem(NameConfig.SourceDirectoryName, [
                 new FileItem(
-                    CMakeLists,
+                    NameConfig.CMakeLists,
                     $"""
                     cmake_minimum_required(VERSION 3.20)
 
@@ -23,7 +20,7 @@ internal sealed class ProjectTree(string projectName)
                 ),
                 new DirectoryItem("main",[
                     new FileItem(
-                        CMakeLists,
+                        NameConfig.CMakeLists,
                         $$"""
                         cmake_minimum_required(VERSION 3.20)
                         project(main)
@@ -77,12 +74,12 @@ internal sealed class ProjectTree(string projectName)
                 )
             ]),
             new FileItem(
-                CMakeLists,
+                NameConfig.CMakeLists,
                 $"""
                 cmake_minimum_required(VERSION 3.20)
                 project({projectName})
 
-                add_subdirectory({SourceDirectoryName})
+                add_subdirectory({NameConfig.SourceDirectoryName})
                 """
             )
         ]);
