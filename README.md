@@ -3,11 +3,11 @@
 You can create projects for C++.
 Those will be very much like Google's layout, but with CMake, not Bazel.
 Tough you should be able modify the C# source code pretty easily 
-to get what what project layout for what you may wish.
+to get what what project layout for what you may wish. <br>
 ```Maker new my_project```
 
 You can also create cmake-sublibraries where 
-you can link your main executable to them.
+you can link your main executable to them. <br>
 ```Maker mod new_module```
 
 ## Build & Run
