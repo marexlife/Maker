@@ -23,14 +23,14 @@ internal sealed class ModuleTree(string name)
             $"{projectName}::{name}";
         var className =
             NameConverter.ToPascalCase(name);
-        var classHeaderName =
+        var classHeaderFileName =
             $"{className}.{NameConfig.CppHeaderFileNameExtension}";
-        var classFileName =
+        var classImplementationFileName =
             $"{className}.{NameConfig.CppFileNameExtension}";
 
         return new(NameConfig.SourceDirectoryName, [
             new DirectoryItem(name, [
-                new FileItem(classHeaderName,
+                new FileItem(classHeaderFileName,
                 $$"""
                 #ifndef {{includeGuard}}
                 #define {{includeGuard}}
@@ -42,9 +42,9 @@ internal sealed class ModuleTree(string name)
                 #endif // {{includeGuard}}
                 """
                 ),
-                new FileItem(classFileName,
+                new FileItem(classImplementationFileName,
                 $""""
-                #include "{classHeaderName}"
+                #include "{classHeaderFileName}"
                 """"
                 ),
                 new FileItem(NameConfig.CMakeLists,
@@ -58,8 +58,12 @@ internal sealed class ModuleTree(string name)
                 set(CMAKE_CXX_STANDARD_REQUIRED ON)
                 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-                add_executable(${PROJECT_NAME}
-                    main.cpp
+                add_library(${PROJECT_NAME}
+                    {{classImplementationFileName}}
+                )
+
+                target_include_directories(${PROJECT_NAME} PUBLIC
+                    ${CMAKE_CURRENT_SOURCE_DIR}
                 )
 
                 target_compile_options(${PROJECT_NAME} PRIVATE
