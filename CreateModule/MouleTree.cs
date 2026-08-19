@@ -22,7 +22,7 @@ internal sealed class ModuleTree(string moduleName)
         var namespaceName =
             $"{projectName}::{moduleName}";
         var className =
-            NameConverter.ToPascalCase(moduleName);
+            $"{NameConverter.ToPascalCase(moduleName)}r";
         var classHeaderFileName =
             $"{className}.{NameConfig.CppHeaderFileNameExtension}";
         var classImplementationFileName =
