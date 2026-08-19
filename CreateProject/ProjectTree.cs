@@ -1,11 +1,14 @@
 using Maker.Items;
 using Maker.Utils;
 using Maker.Config;
+using Maker.CreationShared;
 
 namespace Maker.CreateProject;
 
 internal sealed class ProjectTree(string projectName)
 {
+    private CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(projectName);
+
     internal DirectoryItem GetProjectTree()
     {
         return new(projectName, [
@@ -36,7 +39,7 @@ internal sealed class ProjectTree(string projectName)
                         )
 
                         target_compile_options(${PROJECT_NAME} PRIVATE
-                            ${{{GetProjectFlagsName()}}}
+                            ${{{_cmakeFlagNameBuilder.GetProjectFlagsName()}}}
                         )
                         """
                     ),
@@ -59,9 +62,9 @@ internal sealed class ProjectTree(string projectName)
                     cmake_minimum_required(VERSION 3.20)
 
                     if (MSVC)
-                        set({GetProjectFlagsName()} /W4)
+                        set({_cmakeFlagNameBuilder.GetProjectFlagsName()} /W4)
                     else()
-                        set({GetProjectFlagsName()} 
+                        set({_cmakeFlagNameBuilder.GetProjectFlagsName()} 
                             -Wall
                             -Wextra
                             -Wpedantic
@@ -85,10 +88,5 @@ internal sealed class ProjectTree(string projectName)
         ]);
     }
 
-    private string GetProjectFlagsName()
-    {
-        var screamingSnakeCaseName = NameConverter.ToScreamingSnakeCase(projectName);
 
-        return $"{screamingSnakeCaseName}_FLAGS";
-    }
 }
