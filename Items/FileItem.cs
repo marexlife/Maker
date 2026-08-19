@@ -12,7 +12,7 @@ public sealed record FileItem(string name, string contents) : IItem
         {
             textBuffer += File.ReadAllText(filePath);
         }
-
+        textBuffer += '\n';
         textBuffer += contents;
 
         File.WriteAllText(filePath, textBuffer);

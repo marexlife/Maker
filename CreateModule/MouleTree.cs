@@ -75,7 +75,11 @@ internal sealed class ModuleTree(string moduleName)
                     ${{{_cmakeFlagNameBuilder.GetProjectFlagsName()}}}
                 )
                 """)
-            ])
+            ]),
+            new FileItem(NameConfig.CMakeLists,
+            $"""
+            add_subdirectory({moduleName})
+            """)
         ]);
 
         Console.WriteLine(
