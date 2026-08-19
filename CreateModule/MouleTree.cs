@@ -7,7 +7,7 @@ namespace Maker.CreateModule;
 
 internal sealed class ModuleTree(string moduleName)
 {
-    private CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(moduleName);
+    private readonly CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(moduleName);
 
     internal DirectoryItem GetModuleTree()
     {

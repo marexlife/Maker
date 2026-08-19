@@ -1,5 +1,4 @@
 using Maker.Items;
-using Maker.Utils;
 using Maker.Config;
 using Maker.CreationShared;
 
@@ -7,7 +6,7 @@ namespace Maker.CreateProject;
 
 internal sealed class ProjectTree(string projectName)
 {
-    private CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(projectName);
+    private readonly CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(projectName);
 
     internal DirectoryItem GetProjectTree()
     {
@@ -88,7 +87,7 @@ internal sealed class ProjectTree(string projectName)
             new FileItem("run.sh",
             """
             #!/bin/bash
-            
+
             cmake . -B build -GNinja
             cmake --build build
             ./build/src/main/main
