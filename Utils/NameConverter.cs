@@ -1,6 +1,6 @@
 namespace Maker.Utils;
 
-internal static class Converter
+internal static class NameConverter
 {
     internal static string ToScreamingSnakeCase(string name)
     {

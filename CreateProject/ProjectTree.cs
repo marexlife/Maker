@@ -87,7 +87,7 @@ internal sealed class ProjectTree(string projectName)
 
     private string GetProjectFlagsName()
     {
-        var screamingSnakeCaseName = Converter.ToScreamingSnakeCase(projectName);
+        var screamingSnakeCaseName = NameConverter.ToScreamingSnakeCase(projectName);
 
         return $"{screamingSnakeCaseName}_FLAGS";
     }
