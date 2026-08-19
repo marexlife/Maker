@@ -1,6 +1,6 @@
-namespace Maker;
+namespace Maker.Items;
 
-public sealed record ProjectFile(string name, string contents) : IProjectItem
+public sealed record FileItem(string name, string contents) : IItem
 {
     public void Create(string path)
     {

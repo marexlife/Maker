@@ -1,11 +1,14 @@
-﻿namespace Maker;
+﻿using Maker.CreateProject;
+using Maker.CreateModule;
+using Maker.PickAction;
 
-public static class Program
+namespace Maker;
+
+internal static class Program
 {
-    public static void Main() => ActionPicker.PickAction(
-        FailureHandler.HandleNoUserArgument,
-        FailureHandler.HandleToMuchUserArguments,
-        ProjectCreator.TryCreateProject
-    );
+    private static void Main() => new ActionPicker(
+        projectInfo => new ProjectCreator(projectInfo).TryCreateProject(),
+        moduleInfo => new ModuleCreator(moduleInfo).TryCreateModule()
+    ).TryPickAction();
 }
 

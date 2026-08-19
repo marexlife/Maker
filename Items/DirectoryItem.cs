@@ -1,13 +1,13 @@
-namespace Maker;
+namespace Maker.Items;
 
-public sealed record ProjectDirectory(
-    string name, IProjectItem[] projectItems) : IProjectItem
+public sealed record DirectoryItem(
+    string name, IItem[] projectItems) : IItem
 {
-    public ProjectDirectory(string name) : this(name, [])
+    public DirectoryItem(string name) : this(name, [])
     {
     }
 
-    public IProjectItem[] ProjectItems { get; } = projectItems;
+    public IItem[] ProjectItems { get; } = projectItems;
 
     public void Create()
     {
