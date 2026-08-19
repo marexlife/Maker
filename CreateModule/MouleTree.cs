@@ -28,7 +28,7 @@ internal sealed class ModuleTree(string moduleName)
         var classImplementationFileName =
             $"{className}.{NameConfig.CppFileNameExtension}";
 
-        return new(NameConfig.SourceDirectoryName, [
+        var moduleDirectory = new DirectoryItem(NameConfig.SourceDirectoryName, [
             new DirectoryItem(moduleName, [
                 new FileItem(classHeaderFileName,
                 $$"""
@@ -72,5 +72,17 @@ internal sealed class ModuleTree(string moduleName)
                 """)
             ])
         ]);
+
+        Console.WriteLine(
+        $$"""
+        Use this to link the new sub-library:
+
+        target_link_library(${PROJECT_NAME} PUBLIC
+            {{projectName}}
+        )
+        """
+        );
+
+        return moduleDirectory;
     }
 }
