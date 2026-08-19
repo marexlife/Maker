@@ -11,7 +11,6 @@ internal sealed class ActionPicker(
 {
     private readonly string[] _args = Environment.GetCommandLineArgs();
 
-
     internal void TryPickAction()
     {
         try
