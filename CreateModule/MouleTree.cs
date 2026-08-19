@@ -8,7 +8,12 @@ internal sealed class ModuleTree(string name)
 {
     internal DirectoryItem GetModuleTree()
     {
-        var includeGuard = $"{NameConverter.ToScreamingSnakeCase(name)}_H";
+        var projectName = ProjectNameInferService.InferProjectName();
+        var screamingSnakeCaseModuleName = NameConverter.ToScreamingSnakeCase(name);
+        var screamingSnakeCaseProjectName = NameConverter.ToScreamingSnakeCase(projectName);
+        var includeGuard = $"{screamingSnakeCaseProjectName}_{screamingSnakeCaseModuleName}_H";
+        var namespaceName = $"{projectName}::{name}";
+        var className = NameConverter.ToPascalCase(name);
 
         return new(NameConfig.SourceDirectoryName, [
             new DirectoryItem(name, [
@@ -16,8 +21,8 @@ internal sealed class ModuleTree(string name)
                 $$"""
                 #ifndef {{includeGuard}}
                 #define {{includeGuard}}
-                namespace {{name}} {
-                class {{name}} final {
+                namespace {{namespaceName}} {
+                class {{className}} final {
                    public:
                 };
                 }
