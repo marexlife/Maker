@@ -10,7 +10,7 @@ internal sealed class ModuleTree(ModuleCreationInfo moduleCreationInfo)
     private readonly CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(moduleCreationInfo.ModuleName);
 
     private readonly string _className = NameConverter.ToPascalCase(moduleCreationInfo.ModuleName);
-    private readonly string _namespaceName = $"{moduleCreationInfo.ProjectName}::{moduleCreationInfo}";
+    private readonly string _namespaceName = $"{moduleCreationInfo.ProjectName}::{moduleCreationInfo.ModuleName}";
 
     private string IncludeGuard
     {
