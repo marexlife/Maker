@@ -6,7 +6,36 @@ internal static class ProjectClearer
 {
     internal static void ClearProject()
     {
-        Directory.Delete(NameConfig.BuildDirectoryName, true);
-        Directory.Delete(NameConfig.ClangdCacheDirectoryName, true);
+        try
+        {
+            Directory.Delete(NameConfig.BuildDirectoryName, true);
+        }
+        catch (DirectoryNotFoundException)
+        {
+            Console.WriteLine("Nothing to clear");
+
+            return;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+
+            return;
+        }
+
+        try
+        {
+            Directory.Delete(NameConfig.BuildDirectoryName, true);
+        }
+        catch (DirectoryNotFoundException)
+        {
+            return;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+
+            return;
+        }
     }
 }
