@@ -11,8 +11,9 @@ public sealed record FileItem(string name, string contents) : IItem
         if (File.Exists(filePath))
         {
             textBuffer += File.ReadAllText(filePath);
+            textBuffer += '\n';
         }
-        textBuffer += '\n';
+
         textBuffer += contents;
 
         File.WriteAllText(filePath, textBuffer);
