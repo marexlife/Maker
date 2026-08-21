@@ -1,30 +1,31 @@
 using Maker.Config;
 using Maker.Items;
 using Maker.Utils;
-using Maker.CreationShared;
+using Maker.Actions.Shared;
 
-namespace Maker.CreateModule;
+namespace Maker.Actions.CreateModule;
 
-internal sealed class ModuleTree(string moduleName)
+internal sealed class ModuleTree(ModuleCreationInfo moduleCreationInfo)
 {
-    private readonly CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(moduleName);
+    private readonly CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(moduleCreationInfo.ModuleName);
 
-    private readonly string _projectName = ProjectNameInferService.InferProjectName();
+    private readonly string _className = NameConverter.ToPascalCase(moduleCreationInfo.ModuleName);
+    private readonly string _namespaceName = $"{moduleCreationInfo.ProjectName}::{moduleCreationInfo}";
 
     private string IncludeGuard
     {
         get
         {
             var screamingSnakeCaseModuleName =
-                NameConverter.ToScreamingSnakeCase(moduleName);
+                NameConverter.ToScreamingSnakeCase(moduleCreationInfo.ModuleName);
             var screamingSnakeCaseProjectName =
-                NameConverter.ToScreamingSnakeCase(_projectName);
-            return $"{screamingSnakeCaseProjectName}_{screamingSnakeCaseModuleName}_H";
+                NameConverter.ToScreamingSnakeCase(moduleCreationInfo.ProjectName);
+            var screamingSnakeCaseClassName = NameConverter.ToScreamingSnakeCase(_className);
+
+            return $"{screamingSnakeCaseProjectName}_{screamingSnakeCaseModuleName}_{screamingSnakeCaseClassName}_H";
         }
     }
 
-    private string NamespaceName => $"{_projectName}::{moduleName}";
-    private readonly string _className = $"{NameConverter.ToPascalCase(moduleName)}r";
     private string ClassHeaderFileName =>
         $"{_className}.{NameConfig.CppHeaderFileNameExtension}";
     private string ClassImplementationFileName =>
@@ -32,14 +33,13 @@ internal sealed class ModuleTree(string moduleName)
 
     internal DirectoryItem GetModuleTree()
     {
-
         var moduleDirectory = new DirectoryItem(NameConfig.SourceDirectoryName, [
-            new DirectoryItem(moduleName, [
+            new DirectoryItem(moduleCreationInfo.ModuleName, [
                 new FileItem(ClassHeaderFileName,
                 $$"""
                 #ifndef {{IncludeGuard}}
                 #define {{IncludeGuard}}
-                namespace {{NamespaceName}} {
+                namespace {{_namespaceName}} {
                 class {{_className}} final {
                    public:
                 };
@@ -55,7 +55,7 @@ internal sealed class ModuleTree(string moduleName)
                 new FileItem(NameConfig.CMakeLists,
                 $$"""
                 cmake_minimum_required(VERSION 3.20)
-                project({{moduleName}}})
+                project({{moduleCreationInfo}}})
                 
                 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
@@ -78,7 +78,7 @@ internal sealed class ModuleTree(string moduleName)
             ]),
             new FileItem(NameConfig.CMakeLists,
             $"""
-            add_subdirectory({moduleName})
+            add_subdirectory({moduleCreationInfo.ModuleName})
             """)
         ]);
 
@@ -87,7 +87,7 @@ internal sealed class ModuleTree(string moduleName)
         Use this to link the new sub-library:
 
         target_link_library(${PROJECT_NAME} PUBLIC
-            {{moduleName}}
+            {{moduleCreationInfo.ModuleName}}
         )
         """
         );

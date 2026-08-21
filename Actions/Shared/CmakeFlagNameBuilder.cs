@@ -1,6 +1,6 @@
 using Maker.Utils;
 
-namespace Maker.CreationShared;
+namespace Maker.Actions.Shared;
 
 internal sealed class CmakeFlagNameBuilder(string name)
 {

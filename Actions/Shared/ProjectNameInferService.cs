@@ -1,13 +1,13 @@
-namespace Maker.CreateModule;
+namespace Maker.Actions.Shared;
 
 internal static class ProjectNameInferService
 {
     internal static string InferProjectName()
     {
         var currentPath = Directory.GetCurrentDirectory();
-        var info = Directory.GetParent(currentPath);
+        var name = Path.GetDirectoryName(currentPath);
 
-        return info != null ? info.Name : AskUserForProjectName();
+        return name ?? AskUserForProjectName();
     }
 
     private static string AskUserForProjectName()

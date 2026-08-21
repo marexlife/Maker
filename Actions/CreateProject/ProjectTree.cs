@@ -1,8 +1,8 @@
 using Maker.Items;
 using Maker.Config;
-using Maker.CreationShared;
+using Maker.Actions.Shared;
 
-namespace Maker.CreateProject;
+namespace Maker.Actions.CreateProject;
 
 internal sealed class ProjectTree(string projectName)
 {
@@ -17,15 +17,15 @@ internal sealed class ProjectTree(string projectName)
                     $"""
                     cmake_minimum_required(VERSION 3.20)
 
-                    add_subdirectory(main)
+                    add_subdirectory({NameConfig.MainModuleName})
                     """
                 ),
-                new DirectoryItem("main",[
+                new DirectoryItem(NameConfig.MainModuleName,[
                     new FileItem(
                         NameConfig.CMakeLists,
                         $$"""
                         cmake_minimum_required(VERSION 3.20)
-                        project(main)
+                        project({{projectName}})
                         
                         include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
@@ -34,7 +34,7 @@ internal sealed class ProjectTree(string projectName)
                         set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
                         add_executable(${PROJECT_NAME}
-                            main.cpp
+                            main.{{NameConfig.CppFileNameExtension}}
                         )
 
                         target_compile_options(${PROJECT_NAME} PRIVATE
@@ -43,7 +43,7 @@ internal sealed class ProjectTree(string projectName)
                         """
                     ),
                     new FileItem(
-                        "main.cpp",
+                        $"main.{NameConfig.CppFileNameExtension}",
                         """
                         #include <iostream>
                     
@@ -61,7 +61,9 @@ internal sealed class ProjectTree(string projectName)
                     cmake_minimum_required(VERSION 3.20)
 
                     if (MSVC)
-                        set({_cmakeFlagNameBuilder.GetProjectFlagsName()} /W4)
+                        set({_cmakeFlagNameBuilder.GetProjectFlagsName()} 
+                            /W4
+                        )
                     else()
                         set({_cmakeFlagNameBuilder.GetProjectFlagsName()} 
                             -Wall
@@ -85,12 +87,10 @@ internal sealed class ProjectTree(string projectName)
                 """
             ),
             new FileItem("run.sh",
-            """
-            #!/bin/bash
-
+            $"""
             cmake . -B build -GNinja
             cmake --build build
-            ./build/src/main/main
+            {NameConfig.GetPosixExecutionPath(projectName)}
             """)
         ]);
     }
