@@ -56,7 +56,7 @@ internal sealed class ActionPicker(
         Action action = command switch
         {
             CommandConfig.ModuleCommand => () => tryCreateModuleAction.Invoke(
-                new ModuleCreationInfo(name)
+                new ModuleCreationInfo(name, ProjectNameInferService.InferProjectName())
             ),
             CommandConfig.ProjectCommand => () => tryCreateProjectAction.Invoke(
                 new ProjectCreationInfo(name)

@@ -3,7 +3,7 @@ namespace Maker.CreateModule;
 internal sealed class ModuleCreator(ModuleCreationInfo moduleCreationInfo)
 {
     private ModuleTree _moduleTree = new(
-        moduleCreationInfo.ModuleName
+        moduleCreationInfo
     );
 
     internal void TryCreateModule()
