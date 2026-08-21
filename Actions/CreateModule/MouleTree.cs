@@ -1,9 +1,9 @@
 using Maker.Config;
 using Maker.Items;
 using Maker.Utils;
-using Maker.CreationShared;
+using Maker.Actions.CreationShared;
 
-namespace Maker.CreateModule;
+namespace Maker.Actions.CreateModule;
 
 internal sealed class ModuleTree(ModuleCreationInfo moduleCreationInfo)
 {

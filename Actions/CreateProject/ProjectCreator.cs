@@ -1,4 +1,4 @@
-namespace Maker.CreateProject;
+namespace Maker.Actions.CreateProject;
 
 internal sealed class ProjectCreator(ProjectCreationInfo projectCreationInfo)
 {

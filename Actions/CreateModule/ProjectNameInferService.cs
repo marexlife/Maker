@@ -1,4 +1,4 @@
-namespace Maker.CreateModule;
+namespace Maker.Actions.CreateModule;
 
 internal static class ProjectNameInferService
 {

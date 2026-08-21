@@ -1,6 +1,6 @@
 using Maker.Config;
-using Maker.CreateModule;
-using Maker.CreateProject;
+using Maker.Actions.CreateModule;
+using Maker.Actions.CreateProject;
 using Maker.UserHelp;
 
 namespace Maker.PickAction;
