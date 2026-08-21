@@ -10,6 +10,7 @@ internal static class UserHelpScreen
     Use '{CommandConfig.ModuleCommand} my_module' to create a new project module.
     Use '{CommandConfig.ProjectCommand} my_project' to create a new project.
     Use '{CommandConfig.RunCommand}' to run your project.
+    Use '{CommandConfig.ClearCommand}' to clear your project.
     """;
 
     internal static void DisplayHelp()
