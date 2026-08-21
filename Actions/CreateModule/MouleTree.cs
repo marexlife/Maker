@@ -55,7 +55,7 @@ internal sealed class ModuleTree(ModuleCreationInfo moduleCreationInfo)
                 new FileItem(NameConfig.CMakeLists,
                 $$"""
                 cmake_minimum_required(VERSION 3.20)
-                project({{moduleCreationInfo.ModuleName}}})
+                project({{moduleCreationInfo.ModuleName}})
                 
                 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
 
