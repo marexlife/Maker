@@ -9,6 +9,8 @@ internal static class NameConfig
     internal const string CppFileNameExtension = "cpp";
     internal const string CppHeaderFileNameExtension = "h";
     internal const string BuildDirectoryName = "build";
+    internal const string ClangdCacheDirectoryName = ".cache";
+
     internal const string MainModuleName = "main";
 
 
