@@ -46,6 +46,9 @@ internal sealed class ActionPicker(
         Action action = command switch
         {
             CommandConfig.HelpCommand => UserHelpScreen.DisplayHelp,
+            CommandConfig.RunCommand => () => runProjectAction.Invoke(
+                new RunProjectInfo(ProjectNameInferService.InferProjectName())
+            ),
             _ => throw new InvalidUserArgumentException()
         };
 
@@ -65,9 +68,6 @@ internal sealed class ActionPicker(
             CommandConfig.ProjectCommand => () => tryCreateProjectAction.Invoke(
                 new ProjectCreationInfo(name)
             ),
-            CommandConfig.RunCommand => () => runProjectAction.Invoke(
-                new RunProjectInfo(ProjectNameInferService.InferProjectName()
-            )),
             _ => throw new InvalidUserArgumentException(),
         };
 
