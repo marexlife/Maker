@@ -7,7 +7,7 @@ internal static class ProjectNameInferService
         var currentPath = Directory.GetCurrentDirectory();
         var name = Path.GetDirectoryName(currentPath);
 
-        return currentPath ?? AskUserForProjectName();
+        return name ?? AskUserForProjectName();
     }
 
     private static string AskUserForProjectName()
