@@ -1,6 +1,6 @@
 using Maker.Items;
 using Maker.Config;
-using Maker.Actions.CreationShared;
+using Maker.Actions.Shared;
 
 namespace Maker.Actions.CreateProject;
 

@@ -1,5 +1,5 @@
 namespace Maker.Actions.RunProject;
 
-internal sealed record ProjectRunInfo(
+internal sealed record RunProjectInfo(
     string ProjectName
 );

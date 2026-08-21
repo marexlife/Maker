@@ -1,7 +1,7 @@
 using Maker.Config;
 using Maker.Items;
 using Maker.Utils;
-using Maker.Actions.CreationShared;
+using Maker.Actions.Shared;
 
 namespace Maker.Actions.CreateModule;
 

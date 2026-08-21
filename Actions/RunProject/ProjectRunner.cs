@@ -3,7 +3,7 @@ using Maker.Config;
 
 namespace Maker.Actions.RunProject;
 
-internal sealed class ProjectRunner(ProjectRunInfo projectRunInfo)
+internal sealed class ProjectRunner(RunProjectInfo projectRunInfo)
 {
     internal void TryRunProject()
     {
