@@ -6,4 +6,5 @@ internal static class CommandConfig
     internal const string ModuleCommand = "mod";
     internal const string ProjectCommand = "new";
     internal const string RunCommand = "run";
+    internal const string ClearCommand = "clear";
 }

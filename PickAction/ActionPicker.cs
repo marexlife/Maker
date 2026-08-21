@@ -11,7 +11,8 @@ namespace Maker.PickAction;
 internal sealed class ActionPicker(
     Action<ProjectCreationInfo> tryCreateProjectAction,
     Action<ModuleCreationInfo> tryCreateModuleAction,
-    Action<RunProjectInfo> runProjectAction)
+    Action<RunProjectInfo> runProjectAction,
+    Action projectClearerAction)
 {
     private readonly string[] _args = Environment.GetCommandLineArgs();
 
@@ -49,6 +50,7 @@ internal sealed class ActionPicker(
             CommandConfig.RunCommand => () => runProjectAction.Invoke(
                 new RunProjectInfo(ProjectNameInferService.InferProjectName())
             ),
+            CommandConfig.ClearCommand => projectClearerAction,
             _ => throw new InvalidUserArgumentException()
         };
 
