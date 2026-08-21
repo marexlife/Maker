@@ -39,7 +39,7 @@ internal sealed class ProjectRunner(RunProjectInfo projectRunInfo)
         {
             FileName = "cmake",
             Arguments = $". -B {NameConfig.BuildDirectoryName} -GNinja"
-        });
+        })?.WaitForExit();
     }
 
     private static void RunDefaultGeneration()
@@ -48,7 +48,7 @@ internal sealed class ProjectRunner(RunProjectInfo projectRunInfo)
         {
             FileName = "cmake",
             Arguments = $". -B {NameConfig.BuildDirectoryName}"
-        });
+        })?.WaitForExit();
     }
 
     private static void BuildProject()
@@ -57,7 +57,7 @@ internal sealed class ProjectRunner(RunProjectInfo projectRunInfo)
         {
             FileName = "cmake",
             Arguments = $"--build {NameConfig.BuildDirectoryName}"
-        });
+        })?.WaitForExit();
     }
 
     private void ExecuteFile()
@@ -69,6 +69,6 @@ internal sealed class ProjectRunner(RunProjectInfo projectRunInfo)
         Process.Start(new ProcessStartInfo
         {
             FileName = executionPath,
-        });
+        })?.WaitForExit();
     }
 }
