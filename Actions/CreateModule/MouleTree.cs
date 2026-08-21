@@ -78,7 +78,7 @@ internal sealed class ModuleTree(ModuleCreationInfo moduleCreationInfo)
             ]),
             new FileItem(NameConfig.CMakeLists,
             $"""
-            add_subdirectory({moduleCreationInfo})
+            add_subdirectory({moduleCreationInfo.ModuleName})
             """)
         ]);
 
@@ -87,7 +87,7 @@ internal sealed class ModuleTree(ModuleCreationInfo moduleCreationInfo)
         Use this to link the new sub-library:
 
         target_link_library(${PROJECT_NAME} PUBLIC
-            {{moduleCreationInfo}}
+            {{moduleCreationInfo.ModuleName}}
         )
         """
         );
