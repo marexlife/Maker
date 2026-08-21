@@ -6,7 +6,7 @@ internal static class ProjectClearer
 {
     internal static void ClearProject()
     {
-        Directory.Delete(NameConfig.BuildDirectoryName);
-        Directory.Delete(NameConfig.ClangdCacheDirectoryName);
+        Directory.Delete(NameConfig.BuildDirectoryName, true);
+        Directory.Delete(NameConfig.ClangdCacheDirectoryName, true);
     }
 }
