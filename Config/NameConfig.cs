@@ -22,18 +22,6 @@ internal static class NameConfig
         return GetOsExecutionPath(projectName, OsConfigKind.Variable);
     }
 
-    private static string GetOsVariableExecutableFileName(string projectName)
-    {
-        return OperatingSystem.IsWindows() ?
-            $"{projectName}.exe" :
-            GetPosixExecutableFileName(projectName);
-    }
-
-    private static string GetPosixExecutableFileName(string projectName)
-    {
-        return projectName;
-    }
-
     private static string GetOsExecutionPath(
         string projectName,
         OsConfigKind osConfigKind
@@ -42,7 +30,7 @@ internal static class NameConfig
         var executableFileName = osConfigKind switch
         {
             OsConfigKind.Variable => GetOsVariableExecutableFileName(projectName),
-            OsConfigKind.Posix => GetPosixExecutionPath(projectName),
+            OsConfigKind.Posix => GetPosixExecutableFileName(projectName),
             OsConfigKind.None or _ => throw new UnreachableException()
         };
 
@@ -56,4 +44,17 @@ internal static class NameConfig
 
         return path;
     }
+
+    private static string GetOsVariableExecutableFileName(string projectName)
+    {
+        return OperatingSystem.IsWindows() ?
+            $"{projectName}.exe" :
+            GetPosixExecutableFileName(projectName);
+    }
+
+    private static string GetPosixExecutableFileName(string projectName)
+    {
+        return projectName;
+    }
+
 }
