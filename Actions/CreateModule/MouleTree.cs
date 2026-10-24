@@ -9,8 +9,10 @@ internal sealed class ModuleTree(ModuleCreationInfo moduleCreationInfo)
 {
     private readonly CmakeFlagNameBuilder _cmakeFlagNameBuilder = new(moduleCreationInfo.ModuleName);
 
-    private readonly string _className = NameConverter.ToPascalCase(moduleCreationInfo.ModuleName);
-    private readonly string _namespaceName = $"{moduleCreationInfo.ProjectName}::{moduleCreationInfo.ModuleName}";
+    private readonly string _className =
+        NameConverter.ToPascalCase(moduleCreationInfo.ModuleName);
+    private readonly string _namespaceName =
+        $"{moduleCreationInfo.ProjectName}::{moduleCreationInfo.ModuleName}";
 
     private string IncludeGuard
     {
@@ -58,10 +60,6 @@ internal sealed class ModuleTree(ModuleCreationInfo moduleCreationInfo)
                 project({{moduleCreationInfo.ModuleName}})
                 
                 include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
-
-                set(CMAKE_CXX_STANDARD 20)
-                set(CMAKE_CXX_STANDARD_REQUIRED ON)
-                set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
                 add_library(${PROJECT_NAME}
                     {{ClassImplementationFileName}}

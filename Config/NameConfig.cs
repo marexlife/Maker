@@ -58,5 +58,4 @@ internal static class NameConfig
     {
         return projectName;
     }
-
 }

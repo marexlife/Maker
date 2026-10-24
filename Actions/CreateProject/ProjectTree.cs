@@ -11,11 +11,30 @@ internal sealed class ProjectTree(string projectName)
     internal DirectoryItem GetProjectTree()
     {
         return new(projectName, [
+            new FileItem(
+                NameConfig.CMakeLists,
+                $"""
+                cmake_minimum_required(VERSION 3.20)
+                project({projectName})
+
+                add_subdirectory({NameConfig.SourceDirectoryName})
+                """
+            ),
+            new FileItem("run.sh",
+            $"""
+            cmake . -B build
+            cmake --build build
+            {NameConfig.GetPosixExecutionPath(projectName)}
+            """),
             new DirectoryItem(NameConfig.SourceDirectoryName, [
                 new FileItem(
                     NameConfig.CMakeLists,
                     $"""
                     cmake_minimum_required(VERSION 3.20)
+
+                    set(CMAKE_CXX_STANDARD 23)
+                    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+                    set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
                     add_subdirectory({NameConfig.MainModuleName})
                     """
@@ -28,10 +47,6 @@ internal sealed class ProjectTree(string projectName)
                         project({{projectName}})
                         
                         include(${CMAKE_SOURCE_DIR}/cmake/flags.cmake)
-
-                        set(CMAKE_CXX_STANDARD 20)
-                        set(CMAKE_CXX_STANDARD_REQUIRED ON)
-                        set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
                         add_executable(${PROJECT_NAME}
                             main.{{NameConfig.CppFileNameExtension}}
@@ -77,23 +92,6 @@ internal sealed class ProjectTree(string projectName)
                     """
                 )
             ]),
-            new FileItem(
-                NameConfig.CMakeLists,
-                $"""
-                cmake_minimum_required(VERSION 3.20)
-                project({projectName})
-
-                add_subdirectory({NameConfig.SourceDirectoryName})
-                """
-            ),
-            new FileItem("run.sh",
-            $"""
-            cmake . -B build -GNinja
-            cmake --build build
-            {NameConfig.GetPosixExecutionPath(projectName)}
-            """)
         ]);
     }
-
-
 }

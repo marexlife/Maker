@@ -1,6 +1,8 @@
 namespace Maker.Actions.CreateProject;
 
-internal sealed class ProjectCreator(ProjectCreationInfo projectCreationInfo)
+internal sealed class ProjectCreator(
+    ProjectCreationInfo projectCreationInfo
+)
 {
     private readonly ProjectTree _projectTree = new(
         projectCreationInfo.ProjectName
