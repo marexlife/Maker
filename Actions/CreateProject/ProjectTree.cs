@@ -39,7 +39,7 @@ internal sealed class ProjectTree(string projectName)
                     add_subdirectory({NameConfig.MainModuleName})
                     """
                 ),
-                new DirectoryItem(NameConfig.MainModuleName,[
+                new DirectoryItem(NameConfig.MainModuleName, [
                     new FileItem(
                         NameConfig.CMakeLists,
                         $$"""
@@ -60,10 +60,10 @@ internal sealed class ProjectTree(string projectName)
                     new FileItem(
                         $"main.{NameConfig.CppFileNameExtension}",
                         """
-                        #include <iostream>
+                        #include <print>
                     
                         int main() {
-                            std::cout << "Hi!\n";
+                            std::println("Hi!");
                         }
                         """
                     )
